@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment JAVA Programming</title>
+    <style>
+        table {
+            width: 60%;
+            border-collapse: collapse;
+            margin: 20px;
+        }
+        th, td {
+            border: 1px solid #444;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<h1>JAVA Programming-LOOPS</h1>
+<h2>BHASHKAR KUMAR<br>CSE Second Year (2023-27)</h2>
+<h3>Section A<br>
+    <a href="index.html">Back to Homepage</a></h3>
+
+<table id="data-table">
+    <thead>
+        <tr>
+            <th>SL. NO.</th>
+            <th>Program Name</th>
+            <th>Link</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Data will be populated here -->
+    </tbody>
+</table>
+
+<script>
+    fetch('lodata.json')
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.querySelector('#data-table tbody');
+            data.forEach((item, index) => {
+                const row = document.createElement('tr');
+
+                const slCell = document.createElement('td');
+                slCell.textContent = index + 1;
+
+                const nameCell = document.createElement('td');
+                nameCell.textContent = item.pname;
+
+                const linkCell = document.createElement('td');
+                const link = document.createElement('a');
+                link.href = item.plink.startsWith('http') ? item.plink : 'https://' + item.plink;
+                link.target = '_blank';
+                link.textContent = "Click HERE";
+                linkCell.appendChild(link);
+
+                row.appendChild(slCell);
+                row.appendChild(nameCell);
+                row.appendChild(linkCell);
+
+                tableBody.appendChild(row);
+            });
+        })
+        .catch(error => console.error('Error loading JSON:', error));
+</script>
+</body>
+</html>
